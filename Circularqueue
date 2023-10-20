@@ -1,0 +1,117 @@
+#include<iostream>
+#define MAX 5
+using namespace std;
+
+int queue[MAX];
+int front=-1,rear=-1;  
+int isEmpty()
+{
+    if(front==-1&&rear==-1)
+    {
+        return 1;
+    }else {
+        return 0;
+    }
+          
+}
+
+int isFull()
+{
+   if((rear+1)%MAX==front) 
+   {
+    return 1;
+    }else{
+    return 0;
+    }
+    
+   
+}
+
+void enqueue()
+{
+   if(isFull()==1)
+   {
+    cout<<"\nSorry:Queue is Full";
+    return ;
+   }
+    int data;
+    cout<<"\nEnter Data:";
+    cin>>data;
+
+    if(isEmpty()==1)
+    {
+        rear++;
+        front++;
+        queue[rear]=data;
+    }else{
+        rear=(rear+1)%MAX;
+        queue[rear]=data;
+    }
+   }
+
+
+void dequeue()
+{
+    if(isEmpty()==1)
+    {
+        cout<<"\nSorry:Queue is Empty ";
+        return;
+    }
+
+    if(front==rear)
+    {
+        cout<<"\nData at Front is:"<<queue[front];
+        front=rear=-1;
+    }else{
+        cout<<"\nData at Front end is"<<queue[front];
+        queue[front]=0;
+        front=(front+1)%MAX;
+    }
+    
+}
+void display()
+{
+    int i;
+    if(isEmpty())
+    {
+        cout<<"\nQueue is Empty";
+        
+    }
+    else
+    {
+     cout<<"\nFront-->"<<front;
+     cout<<endl<<"Items are:";
+     for(i=front;i<=rear;i++)
+     {
+         cout<<queue[i]<<" ";
+     }
+     cout<<"\nRear-->"<<rear;       
+    }
+}
+
+int main()
+{
+    char ch;
+    do {
+    int choice;
+    cout<<"\nQueue Operation \nEnqueue\nDequeue\nDisplay\nEnter your choice:";
+    cin>>choice;
+
+    switch(choice)
+    {
+        case 1:enqueue();
+               break;
+            
+        case 2:dequeue();
+               break;
+        case 3:display();
+               break;
+        default:
+               cout<<"\nDear please enter valid choice";
+    
+    }
+    cout<<"\nContinue (y/n):";
+    cin>>ch;
+    }while(ch=='y');
+   
+}
